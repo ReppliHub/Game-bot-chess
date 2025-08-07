@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#story-container h1 {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0077ff, 0 0 40px #0077ff;
+}
+
+#story-container p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+#chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 70px);
+    grid-template-rows: repeat(8, 70px);
+    width: 560px;
+    height: 560px;
+    border: 3px solid #7daff;
+    border-radius: 5px;
+    box-shadow: 0 0 25px rgba(0, 119, 255, 0.7);
+}
+
+.square {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.square:hover {
+    background-color: rgba(125, 175, 255, 0.3);
+}
+
+.light {
+    background-color: #dfe9f3;
+}
+
+.dark {
+    background-color: #8ca6c8;
+}
+
+.piece {
+    font-size: 50px;
+    cursor: pointer;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease-in-out;
+}
+
+.piece:hover {
+    transform: scale(1.1);
+}
+
+#turn-indicator {
+    margin-top: 25px;
+    font-size: 1.8em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 5px #fff, 0 0 10px #0077ff;
+    }
+    50% {
+        opacity: 0.7;
+        text-shadow: 0 0 10px #fff, 0 0 20px #0077ff;
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 5px #fff, 0 0 10px #0077ff;
+    }
+}
+
+.selected {
+    background-color: rgba(255, 223, 0, 0.5) !important;
+    box-shadow: inset 0 0 10px #ffd700;
+}
+
+.valid-move {
+    position: relative;
+}
+
+.valid-move::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(45, 156, 219, 0.5);
+    border-radius: 50%;
+    pointer-events: none; /* So it doesn't interfere with clicks */
+}
+
+.valid-move:hover::after {
+    background-color: rgba(45, 156, 219, 0.8);
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    animation: fadeIn 0.5s;
+}
+
+.modal-content {
+    background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+    margin: 15% auto;
+    padding: 30px;
+    border: 1px solid #7daff;
+    width: 60%;
+    max-width: 700px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 30px rgba(0, 119, 255, 0.5);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.floating-piece {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2000;
+    font-size: 50px; /* Should match .piece font-size */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
